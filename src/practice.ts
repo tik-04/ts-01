@@ -1,93 +1,33 @@
-1.
-function getStatusMessage(status: 'success' | 'error' | 'loading'): string {
-    if (status === "success") {
-        return "Operation was successful"
-    }
-    if (status === "error") {
-        return "Something went wrong"
-    }
-    if (status === "loading") {
-        return "Loading..."
-    }
-    return "";
-}
+// 1.
+// function identity<T>(arg: T): T {
+//     return arg;
+// }
+  
+// console.log(identity<string>("tik"))
+// console.log(identity<number>(99))
 
-2.
-type ID = string | number;
+// 2.
+// function swap<T, U>(a: [T, U]): [U, T] {
+//     return [a[1],a[0]]
+// }
+console.log("test")
+// 3.
 
-interface User {
-    id: ID
-    name: string
-    isAdmin: boolean
-}
+// function logArray<T>(arr: T[]): void {
+//     for (let i = 0; i < arr.length; i++) {
+//         console.log(arr[i])
+//     }
+// }
 
-3.
-type MixedInput = (string | number)[];
+// 4.
+// function fetchProp<T, K extends keyof T>(obj: T, key: K): T[K] {
+//     return obj[key]
+// }
 
-function printInputs(inputs: MixedInput): void {
-    for (let i = 0; i < inputs.length; i++) {
-        console.log(inputs[i])
-    }
-}
+// const profile = { name: "tik", age: 20 };
+// console.log(fetchProp(profile,"name"))
 
-const test: MixedInput = ["hi", 1, "yo", 2, 3];
-
-printInputs(test)
-
-4.
-
-function messageLog(message: string, prefix?: string): string {
-    if (prefix) {
-        console.log(`${prefix}: ${message}`)
-        return ""
-    }
-    console.log(message)
-    return ""
-    
-}
-
-
-5.
-
-function process(value: string | number): string | number {
-    switch (typeof (value)) {
-        case "string": 
-            return value.length
-        case "number":
-            return value ** 2
-        default:
-            throw new Error("Unexpected type");
-    }
-
-}
-
-6.
-let input: unknown = "Hello World";
-
-if (typeof(input) == "string") {
-    console.log(input.length);
-}
-
-7.
-
-type enumRoll = 'Admin' | 'Editor' | 'Viewer'
-
-function checkPermission(role: enumRoll): boolean{
-    if (role === 'Editor' || role === 'Viewer') {
-        throw new Error("Not a Admin")
-    }
-    return true
-    
-}
-
-8.
-
-interface Config {
-    readonly version: string
-    debug: boolean
-}
-
-
-
-
-
+// 5.
+// function doubleLength<T extends { length: number }>(val: T): number {
+//     return val.length ** 2
+// }
