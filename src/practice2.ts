@@ -20,10 +20,7 @@ function mergeObjects<T, U>(obj1:T,obj2:U): T & U {
 // Vehicle + Car
 
 class Vehicle {
-    constructor(public brand:string, public speed:number) {
-        this.brand = brand
-        this.speed = speed
-    }
+    constructor(public brand:string, public speed:number) {}
     move() : void { console.log(`${this.brand} is moving at ${this.speed} km/h`)}
 }
 
@@ -42,8 +39,6 @@ abstract class Shape {
 class Rectangle extends Shape {
     constructor(public width:number,public height:number) {
         super()
-        this.width = width
-        this.height = height
     }
     area(): number {
         return this.width * this.height
@@ -53,7 +48,6 @@ class Rectangle extends Shape {
 class Circle extends Shape {
     constructor(public radius:number) {
         super()
-        this.radius = radius
     }
     area(): number {
         return (Math.PI * this.radius * this.radius)
