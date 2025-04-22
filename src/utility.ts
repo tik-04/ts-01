@@ -55,7 +55,43 @@ type Settings = {
   // type UpdateSettings = Readonly<Partial<Settings>>
 
 
+// Pick Omit
 
+//3.1
+type Product31 = {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+  }
+  
+// 👉 สร้าง type ProductPreview ที่มีแค่ name กับ price
+type ProductPreview = Pick<Product31, "name" | "price">
+
+//3.2
+type Admin = {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+  }
+  
+  // 👉 สร้าง type AdminPublic ที่ไม่มี password
+  type AdminPublic = Omit<Admin,"password">  
+
+//3.3 Pick / Omit / Partial
+type Settings33 = {
+    theme: string;
+    sound: boolean;
+    notifications: boolean;
+  }
+  
+  // 👉 สร้าง type OptionalSettings ที่มีเฉพาะ sound กับ notifications และเป็น optional ทั้งหมด
+  type OptionalSettings = Partial<Pick<Settings33,"sound" | "notifications">>
+  // ✅ คาดหวัง: Partial<Pick<Settings, "sound" | "notifications">>
+
+//bonus ต่างเพราะ ฝั่งซ้ายแม่งเลือกแค่อย่างเดียว ฝั่งขวาได้สอง
+  
   
 
 
