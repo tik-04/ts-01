@@ -92,6 +92,38 @@ type Settings33 = {
 
 //bonus ต่างเพราะ ฝั่งซ้ายแม่งเลือกแค่อย่างเดียว ฝั่งขวาได้สอง
   
+// infer
+
+//4.1
+                        //ตรงนี้แหละ pattern 
+type GetReturn<T> = T extends (...arg: any[]) => infer R ? R : never 
+//กูเริ่มเข้าใจ infer ละ ไอหลัง extend มันก็คือ propety ของ type ที่เราจะลองดึง type ออกมาใช่ปะ
+
+            //ตรงนี้แหละที่จะเอาไปเขียน
+type Fn1 = () => string
+type Fn2 = (a: number, b: number) => number[]
+
+type R1 = GetReturn<Fn1> // ❓ ได้ string
+type R2 = GetReturn<Fn2> // ❓ ได้ number[]
+
+//4.2
+type UnwrapPromise<T> = T extends Promise<infer P> ? P : never
+
+type A42 = Promise<string>
+type B = Promise<{ id: number }>
+
+type T1 = UnwrapPromise<A> // ❓ ได้ string
+type T2 = UnwrapPromise<B> // ❓ ได้ { id: number }
+
+//4.3
+type FnList = [() => string, () => number, () => boolean]
+
+type AllReturns<T> = T extends Array<(...args: any[]) => infer P> ? P : never // มึงเขียนเองเลย infer ยังไงให้มันได้ union
+
+type Result = AllReturns<FnList> // ❓ ได้ string | number | boolean
+
+
+
   
 
 
