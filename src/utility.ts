@@ -123,6 +123,68 @@ type AllReturns<T> = T extends Array<(...args: any[]) => infer P> ? P : never //
 type Result = AllReturns<FnList> // ❓ ได้ string | number | boolean
 
 
+// infer ซ้อน infer 
+
+//5.1 
+type WithHandler = {
+  name: string;
+  handler: () => number[]
+}
+
+// 👉 สร้าง `ExtractHandlerReturn<T>`
+type ExtractHandlerReturn<T, K extends keyof T> = T[K] extends (...args:any[]) => infer R? R : never
+// ที่จะได้ return type ของ method `handler` ถ้ามี
+// ❓ ผลลัพธ์: number[]
+
+//5.2
+type A52 = Promise<Promise<string>>
+type B52 = Promise<number>
+type C52 = string
+
+// 👉 สร้าง `DeepUnwrap<T>` ที่สามารถดึง type ลึกสุดของ promise ซ้อนๆ
+type DeepUnwrap<T> =   T extends Promise<infer U> ? DeepUnwrap<U> : T;
+// ❓ A = string
+// ❓ B = number
+// ❓ C = string (ไม่ต้องเปลี่ยน)
+
+//5.3
+type API = {
+  getUser: () => string;
+  getAge: () => number;
+  getOnline: () => boolean;
+}
+
+// 👉 สร้าง `AllReturns<T>` ที่รวม return type ของทุกฟังก์ชันใน object T
+type AllReturns2<T> = T[keyof T] extends (...args: any) => infer P? P : never
+// ❓ ผลลัพธ์: string | number | boolean
+
+//5.4
+type Events = {
+  click: (x: number) => void
+  drag: (x: number, y: number) => void
+}
+
+// 👉 สร้าง `AllArgs<T>` ที่ได้เป็น union ของ args แต่ละฟังก์ชัน
+type AllArgs<T> = T[keyof T] extends (...arg: infer P) => void ? P : never
+// ❓ ผลลัพธ์: [number] | [number, number]
+
+//bonus
+type A_bonus5 = string[][]
+type B_bonus5 = number[][][]
+type C_bonus5 = string
+
+type Flatten<T> = T extends (infer P)[] ? Flatten<P> : T;
+
+type R1_bonus5 = Flatten<A_bonus5> // string
+type R2_bonus5 = Flatten<B_bonus5> // number
+type R3_bonus5 = Flatten<C_bonus5> // string
+
+
+
+
+
+
+
 
   
 
