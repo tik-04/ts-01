@@ -106,3 +106,34 @@ class Item<T> {
         this.effect(target, this.value)
     }
 }
+
+  const potion = new Item<number>(
+    "Potion",
+    (target, amount) => {
+      target.hp += amount;
+      console.log(`Healed ${target.name} by ${amount} HP`);
+    },
+    50
+  );
+  
+  const curse = new Item<string>(
+    "Curse",
+    (target, newStatus) => {
+      target.status = newStatus;
+      console.log(`Cursed ${target.name} with status: ${newStatus}`);
+    },
+    "burned"
+  );
+  
+  const revive = new Item<(pet: Pet) => void>(
+    "Revive Scroll",
+    (target, effectFn) => {
+      effectFn(target);
+    },
+    pet => {
+      pet.hp = 100;
+      pet.status = "revived";
+      console.log(`Revived ${pet.name} from death!`);
+    }
+  );
+  
