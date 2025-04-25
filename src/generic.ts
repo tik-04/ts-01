@@ -38,4 +38,39 @@ function isEqual<T>(a: T, b: T): boolean{
     return false
 }
 
+//2.1
+function pluck<T, K extends keyof T>(obj: T, keys: K[]): T[K][] {
+    return keys.map(key => obj[key])
+}
+
+const user = { id: 1, name: "Tik", active: true }
+console.log(pluck(user, ["id", "active"])) // [1, true]
+
+//2.2
+type ReadonlyKeys<T> = {
+    readonly [K in keyof T]: T[K];
+}
+
+type Person = { name: string; age: number }
+type Result22 = ReadonlyKeys<Person>
+// => { readonly name: string; readonly age: number }
+
+//2.3
+type PickByType<T, U> = {
+    [K in keyof T as T[K] extends U ? K : never]: T[K];
+}
+
+type Data = { id: number; name: string; active: boolean }
+type OnlyBoolean = PickByType<Data, boolean>
+// => { active: boolean }
+
+//2.4
+function hasKey<T extends object>(obj: T, key: keyof T): boolean {
+    return key in obj;
+}
+
+
+
+
+
 
